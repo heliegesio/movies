@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Commands.ProducerCommands.Request;
@@ -18,6 +19,7 @@ namespace Movies.Controllers
 
         public ProducerController(IMediator mediator)
         {
+
             _mediator = mediator;
         }
 

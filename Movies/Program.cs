@@ -12,6 +12,8 @@ builder.Services.AddDbContext<MoviesDbContext>(options =>
 
 
 // Registre seu repositório
+builder.Services.AddScoped<SeedDB>();
+
 builder.Services.AddScoped<IProducerRepository, ProducerRepository>();
 
 builder.Services.AddControllers();
@@ -36,8 +38,8 @@ var app = builder.Build();
 
 //dbContext.Database.Migrate();
 
-//var seed = app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedDB>();
-//await seed.Seed();
+var seed = app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedDB>();
+await seed.Seed();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
