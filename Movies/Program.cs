@@ -35,9 +35,9 @@ var app = builder.Build();
 
 
 
-var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
-dbContext.Database.EnsureDeleted();
-dbContext.Database.Migrate();
+//var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
+//dbContext.Database.EnsureDeleted();
+//dbContext.Database.Migrate();
 
 var seed = app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedDB>();
 await seed.Seed();

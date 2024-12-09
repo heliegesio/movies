@@ -58,26 +58,26 @@ namespace Movies.Infrastructure.Data
             // Desserializa o JSON
             var rootObject = JsonConvert.DeserializeObject<RootObject>(jsonData);
 
-            //percorre a lista Min para inserir na base
-            foreach (var item in rootObject.Min)
-            {
-                var producer = _mapper.Map<CreateProducerRequest>(item);
-                await _mediator.Send(producer);
+            ////percorre a lista Min para inserir na base
+            //foreach (var item in rootObject.Min)
+            //{
+            //    var producer = _mapper.Map<CreateProducerRequest>(item);
+            //    await _mediator.Send(producer);
 
-            }
+            //}
 
-            //percorre a lista Max para inserir na base
-            foreach (var item in rootObject.Max)
-            {
-                var producer = _mapper.Map<CreateProducerRequest>(item);
-                await _mediator.Send(producer);
+            ////percorre a lista Max para inserir na base
+            //foreach (var item in rootObject.Max)
+            //{
+            //    var producer = _mapper.Map<CreateProducerRequest>(item);
+            //    await _mediator.Send(producer);
 
-            }
+            //}
 
-            //#region Producer criar 20 dados de teste
+            ////#region Producer criar 20 dados de teste
 
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 99; i++)
             {
                 var producerRequest = new CreateProducerRequest()
                 {

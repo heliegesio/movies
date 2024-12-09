@@ -34,11 +34,20 @@ namespace Movies.Controllers
         }
 
         [HttpGet]
-        [Route("ProducerWithLongestInterval")]
-        public IActionResult ProducerWithLongestInterval([FromQuery] ProducerTestIntervalRequest command)
+        [Route("ProdutorComMaiorIntevalo")]
+        public IActionResult ProdutorComMaiorIntevalo()
         {
 
-            var result = _mediator.Send(command);
+            var result = _mediator.Send(new ProducerMaxIntervalRequest());
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("ProdutorComMenorIntevalo")]
+        public IActionResult ProdutorComMenorIntevalo()
+        {
+
+            var result = _mediator.Send(new ProducerMinIntervalRequest());
             return Ok(result);
         }
 
