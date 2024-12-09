@@ -2,7 +2,8 @@
 {
     public class PagedQueryResult<TEntity>
     {
-        public IEnumerable<TEntity>? Itens { get; set; }
+        public IEnumerable<TEntity> Itens { get; set; } = null!;
 
+        public QueryPaginationInfo Paginacao { get; set; } = null!;
     }
 }

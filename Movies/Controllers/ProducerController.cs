@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
+using Movies.Application.Commands.ProducerCommands.Request;
 using Movies.Application.Queries.ProducerQuerys.Request;
 using Movies.Domain.Models;
 using Movies.Infrastructure.Repositories;
@@ -20,18 +21,18 @@ namespace Movies.Controllers
             _mediator = mediator;
         }
 
-        //[HttpPost]
-        //public IActionResult Create([FromBody] Producer command)
-        //{
-        //    _handler.Adicionar(command);
-        //    return Ok(command);
-        //}
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateProducerRequest command)
+        {
+            var result = _mediator.Send(command);
+            return Ok(result);
+        }
 
         [HttpGet]
-        public IActionResult Buscar()
+        public IActionResult Buscar([FromQuery] ListarProducerRequest command)
         {
 
-            var result = _mediator.Send(new ListarProducerRequest());
+            var result = _mediator.Send(command);
             return Ok(result);
         }
 
