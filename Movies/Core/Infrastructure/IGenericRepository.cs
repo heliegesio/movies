@@ -7,7 +7,7 @@ namespace Movies.Core.Infrastructure
     {
         Task<PagedQueryResult<TEntity>> Listar<TResultItem>(int numeroDaPagina = 0, int tamanhoDaPagina = 10, CancellationToken cancellationToken = default(CancellationToken));
         IQueryable<TEntity> Obter();
-        void Adicionar(TEntity entity);
+        Task AdicionarAsync(TEntity entity);
         void Update(TEntity entity);
         void Remove(TEntity entity);
     }

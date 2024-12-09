@@ -16,10 +16,10 @@ namespace Movies.Core.Infrastructure
         public IQueryable<TEntity> Obter() => _context.Set<TEntity>().AsQueryable();
 
 
-        public void Adicionar(TEntity entity)
+        public async Task AdicionarAsync(TEntity entity)
         {
             _context.Add(entity);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
 
