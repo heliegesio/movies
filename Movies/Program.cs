@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Movies.Application.Data;
 using Movies.Application.Handlers;
 using Microsoft.EntityFrameworkCore.Design;
+using Movies.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +16,14 @@ var connectionString = builder.Configuration.GetConnectionString("SqliteConnecti
 builder.Services.AddDbContext<MoviesDbContext>(options =>
     options.UseSqlite(connectionString)
 );
+
+
 var app = builder.Build();
+
+
+var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
+dbContext.Database.EnsureDeleted();
+dbContext.Database.Migrate();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
