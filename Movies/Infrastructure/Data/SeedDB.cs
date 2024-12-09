@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Movies.Application.Commands.ProducerCommands.Request;
-using Movies.Infrastructure.Repositories;
 
 namespace Movies.Infrastructure.Data
 {
@@ -10,9 +8,6 @@ namespace Movies.Infrastructure.Data
         private readonly MoviesDbContext _dbContext;
         private readonly IMediator _mediator;
 
-
-
-
         public SeedDB(
             MoviesDbContext dbContext,
             IMediator mediator
@@ -20,7 +15,6 @@ namespace Movies.Infrastructure.Data
         {
             _dbContext = dbContext;
             _mediator = mediator;
-
 
         }
 
@@ -52,20 +46,22 @@ namespace Movies.Infrastructure.Data
         {
             #region Producer
 
-            var producerRequest = new CreateProducerRequest()
+            for (int i = 0; i < 20; i++)
             {
-                Name = NameGenerator.GenerateRandomName(),
-                FollowingWin = 1,
-                Interval = 2,
-                PreviousWin = 3
-            };
+                var producerRequest = new CreateProducerRequest()
+                {
+                    Name = DataGenerator.GenerateRandomName(),
+                    FollowingWin = DataGenerator.GenerateRandomNumber(10, 40),
+                    Interval = DataGenerator.GenerateRandomNumber(1, 10),
+                    PreviousWin = DataGenerator.GenerateRandomNumber(3, 10),
+                };
 
-            await _mediator.Send(producerRequest);
+                await _mediator.Send(producerRequest);
+            }
 
             #endregion
 
         }
-
 
     }
 }

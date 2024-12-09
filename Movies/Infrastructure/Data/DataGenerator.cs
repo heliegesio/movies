@@ -1,6 +1,6 @@
 ﻿namespace Movies.Infrastructure.Data
 {
-    public class NameGenerator
+    public class DataGenerator
     {
         private static readonly Random _random = new Random();
         
@@ -13,6 +13,11 @@
             string firstName = FirstNames[_random.Next(FirstNames.Length)];
             string lastName = LastNames[_random.Next(LastNames.Length)];
             return $"{firstName} {lastName}";
+        }
+
+        public static int GenerateRandomNumber(int min, int max)
+        {
+            return _random.Next(min, max);
         }
     }
 
