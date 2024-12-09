@@ -4,12 +4,15 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
-    <PublishAot>true</PublishAot>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="NovaPasta\" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\Data\" />
+    <Folder Include="Application\Services\" />
   </ItemGroup>
 
 </Project>
