@@ -7,10 +7,13 @@ using Movies.Infrastructure.Repositories;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using LinqKit;
 using System.Linq.Expressions;
+using Movies.Application.Queries.ProducerQuerys.Response;
+using AutoMapper.QueryableExtensions;
+using Movies.Core.Extensions;
 
 namespace Movies.Application.Queries
 {
-    public class ListarProducerQueryHandler : IRequestHandler<ListarProducerRequest, PagedQueryResult<Producer>>
+    public class ListarProducerQueryHandler : IRequestHandler<ListarProducerRequest, PagedQueryResult<ListarProducersQueryResponse>>
     {
         IProducerRepository _repository;
 
@@ -20,14 +23,18 @@ namespace Movies.Application.Queries
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<PagedQueryResult<Producer>> Handle(ListarProducerRequest request, CancellationToken cancellationToken)
+        public async Task<PagedQueryResult<ListarProducersQueryResponse>> Handle(ListarProducerRequest request, CancellationToken cancellationToken)
         {
             var filtro = PredicateBuilder.New<Producer>(true);
             if (request.Name != null)
                 filtro = filtro.And(x => x.Name.ToLower().Contains(request.Name.ToLower()));
 
-
-            return await _repository.Listar<Producer>(filtro, request.PageNumber, request.PageSize, cancellationToken);
+            return await _repository
+                .Obter()
+                .Where(filtro)
+                .ProjectTo<ListarProducersQueryResponse>(_mapper.ConfigurationProvider)
+                .PaginateAsync(request.NumeroDaPagina, request.TamanhoDaPagina, cancellationToken);
+            
 
         }
     }
