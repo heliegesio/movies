@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Options;
-using Movies.Application.Models;
+using Movies.Domain.Models;
 
 namespace Movies.Infrastructure.Data
 {

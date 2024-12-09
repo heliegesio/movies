@@ -1,6 +1,6 @@
 ﻿using Movies.Application.Commands;
-using Movies.Application.Models;
 using Movies.Application.Queries;
+using Movies.Domain.Models;
 
 namespace Movies.Application.Handlers
 {

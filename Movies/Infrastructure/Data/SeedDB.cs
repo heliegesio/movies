@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Movies.Domain.Repositories;
 using System.Data;
 
 namespace Movies.Infrastructure.Data
@@ -6,16 +8,8 @@ namespace Movies.Infrastructure.Data
     public class SeedDB
     {
         private readonly MoviesDbContext _dbContext;
-        private readonly IEstabelecimentoRepository _repositoryEstabelecimento;
-        private readonly IClienteRepository _repositoryCliente;
-        private readonly IGrupoEconomicoRepository _repositoryGrupoEconomico;
-        private readonly IProdutoRepository _repositoryProduto;
-        private readonly IPlanoRepository _repositoryPlano;
-        private readonly ILinkPagamentoRepository _repositoryLinkPagamento;
-        private readonly IAssinaturaRepository _repositoryAssinatura;
-        private readonly IESitefPagamentoRepository _eSitePagamentoRepository;
-        private readonly IESitefRepository _repositoryESitef;
-        private readonly IEnvironment _environment;
+        private readonly IProducerRepository _repositoryEstabelecimento;
+        
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 

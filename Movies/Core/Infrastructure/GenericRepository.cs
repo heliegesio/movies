@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movies.Infrastructure.Data;
-
-using Movies.Application.Models;
+using Movies.Domain.Models;
 namespace Movies.Core.Infrastructure
 {
     public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity>, IDisposable where TEntity : Model
@@ -12,8 +11,6 @@ namespace Movies.Core.Infrastructure
         {
             _context = context;
         }
-
-        public IUnitOfWork UnitOfWork => (IUnitOfWork)_context;
 
         public IQueryable<TEntity> Obter() => _context.Set<TEntity>().AsQueryable();
 

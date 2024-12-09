@@ -1,4 +1,4 @@
-﻿namespace Movies.Application.Models
+﻿namespace Movies.Domain.Models
 {
     public class Producer
     {

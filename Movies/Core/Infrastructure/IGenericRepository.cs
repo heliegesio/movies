@@ -1,14 +1,12 @@
-﻿
-using Movies.Application.Models;
+﻿using Movies.Domain.Models;
 
 namespace Movies.Core.Infrastructure
 {
-    public interface IGenericRepository<TEntity> where TEntity : Model
+    public interface IGenericRepository<TEntity> where TEntity : Model // Garante que TEntity precise herdar de Model
     {
-        IUnitOfWork UnitOfWork { get; }
-        void Adicionar(TEntity entity);
         IQueryable<TEntity> Obter();
         IQueryable<TEntity> ObterAsNoTracking();
+        void Adicionar(TEntity entity);
         void Update(TEntity entity);
         void Remove(TEntity entity);
     }

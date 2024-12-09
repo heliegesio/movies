@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Movies.Application.Models
+namespace Movies.Domain.Models
 {
     public class Model
     {
@@ -38,7 +38,7 @@ namespace Movies.Application.Models
 
         public override int GetHashCode()
         {
-            return (GetType().GetHashCode() * 907) + Id.GetHashCode();
+            return GetType().GetHashCode() * 907 + Id.GetHashCode();
         }
 
         public override string ToString()
