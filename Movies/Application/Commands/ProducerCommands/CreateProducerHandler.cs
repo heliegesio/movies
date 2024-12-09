@@ -1,6 +1,6 @@
-﻿namespace Movies.Application.Commands
+﻿namespace Movies.Application.Commands.ProducerCommands
 {
-    public class CreateProducerCommand
+    public class CreateProducerHandler
     {
         public string Producer { get; set; } = null!;
         public int Interval { get; set; }
