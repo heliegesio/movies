@@ -26,7 +26,7 @@ namespace Movies.Controllers
         [HttpGet]
         public IActionResult Get([FromQuery] string type)
         {
-            var query = new GetProducersQuery { Type = type };
+            var query = new GetProducersQuery { Producer = type };
             var producers = _handler.Handle(query);
             return Ok(producers);
         }
