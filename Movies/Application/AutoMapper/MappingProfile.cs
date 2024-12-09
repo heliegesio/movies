@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Movies.Application.Commands.ProducerCommands.Request;
+using Movies.Application.Queries.ProducerQuerys.Response;
 using Movies.Domain.Models;
 
 namespace Movies.Application.AutoMapper
@@ -9,7 +10,8 @@ namespace Movies.Application.AutoMapper
         public MappingProfile()
         {
            
-            CreateMap<CreateProducerRequest, Producer>(); 
+            CreateMap<CreateProducerRequest, Producer>();
+            CreateMap<Producer, ListarProducersQueryResponse>();
         }
     }
 }

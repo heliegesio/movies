@@ -4,6 +4,6 @@ namespace Movies.Application.Queries.ProducerQuerys.Response
 {
     public class ListarProducersQueryResponse : IPagedQueryResultItem
     {
-       
+        public Guid Id { get; set; }
     }
 }
