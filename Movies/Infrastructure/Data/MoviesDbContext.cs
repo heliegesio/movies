@@ -31,5 +31,18 @@ namespace Movies.Infrastructure.Data
 
             base.OnModelCreating(modelBuilder);
         }
+
+        public async Task<bool> CommitAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+          
+            if (await SaveChangesAsync(cancellationToken) <= 0)
+            {
+                return false;
+            }
+
+          
+
+            return true;
+        }
     }
 }

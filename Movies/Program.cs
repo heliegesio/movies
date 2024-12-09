@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSingleton<ProducerHandler>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -24,6 +25,9 @@ var app = builder.Build();
 var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
 dbContext.Database.EnsureDeleted();
 dbContext.Database.Migrate();
+
+var seed = app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedDB>();
+await seed.Seed();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

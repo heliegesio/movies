@@ -1,8 +1,7 @@
 ﻿namespace Movies.Domain.Models
 {
-    public class Producer
+    public class Producer : Model
     {
-        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public int Interval { get; set; }
         public int PreviousWin { get; set; }
