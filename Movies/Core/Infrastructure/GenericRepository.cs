@@ -2,6 +2,7 @@
 using Movies.Core.Querys;
 using Movies.Domain.Models;
 using Movies.Infrastructure.Data;
+using System.Linq.Expressions;
 namespace Movies.Core.Infrastructure
 {
     public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity>, IDisposable where TEntity : Model
@@ -27,14 +28,22 @@ namespace Movies.Core.Infrastructure
 
         public void Remove(TEntity entity) => _context.Remove(entity);
 
-        public async Task<PagedQueryResult<TEntity>> Listar<TResultItem>(int numeroDaPagina = 0, int tamanhoDaPagina = 5, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<PagedQueryResult<TEntity>> Listar<TResultItem>(Expression<Func<TEntity, bool>> filtro = null, int numeroDaPagina = 0, int tamanhoDaPagina = 5, CancellationToken cancellationToken = default(CancellationToken))
         {
             var query = this.Obter();
+
+            if (filtro != null)
+            {
+                query = query.Where(filtro);
+            }
+
             numeroDaPagina = ((numeroDaPagina >= 0) ? numeroDaPagina : 0);
             tamanhoDaPagina = ((tamanhoDaPagina < 1) ? 5 : tamanhoDaPagina);
+
             int totalElements = await query.CountAsync(cancellationToken);
             int count = numeroDaPagina * tamanhoDaPagina;
             List<TEntity> list = await query.Skip(count).Take(tamanhoDaPagina).ToListAsync(cancellationToken);
+
             return new PagedQueryResult<TEntity>
             {
                 Itens = list,

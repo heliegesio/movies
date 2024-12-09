@@ -23,12 +23,11 @@ namespace Movies.Application.Queries
         public async Task<PagedQueryResult<Producer>> Handle(ListarProducerRequest request, CancellationToken cancellationToken)
         {
             var filtro = PredicateBuilder.New<Producer>(true);
-            if(request.Name != null)
+            if (request.Name != null)
                 filtro = filtro.And(x => x.Name.ToLower().Contains(request.Name.ToLower()));
 
-            return _repository.Obter()
-                .Where(filtro)
-            .PaginateAsync(query.NumeroDaPagina, query.TamanhoDaPagina, cancellationToken);
+
+            return await _repository.Listar<Producer>(filtro, request.PageNumber, request.PageSize, cancellationToken);
 
         }
     }
