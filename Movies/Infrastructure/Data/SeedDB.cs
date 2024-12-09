@@ -52,16 +52,16 @@ namespace Movies.Infrastructure.Data
         private async Task SeedDataDevelopment()
         {
             #region Producer
-            var producerInput = new Producer()
-            {
-                Name = "Teste",
-                FollowingWin=1,
-                Interval=2,
-                PreviousWin=3
-            };
+            //var producerInput = new Producer()
+            //{
+            //    Name = "Teste",
+            //    FollowingWin=1,
+            //    Interval=2,
+            //    PreviousWin=3
+            //};
 
           
-            _repositoryProducer.Adicionar(producerInput);
+            //_repositoryProducer.Adicionar(producerInput);
             #endregion
 
            

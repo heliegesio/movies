@@ -9,16 +9,15 @@ namespace Movies.Infrastructure.Data
     {
         public MoviesDbContext(DbContextOptions<MoviesDbContext> options) : base(options)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<MoviesDbContext>();
-            optionsBuilder.UseSqlite("Data Source=Movies.db");
+        
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.ConfigureWarnings(warnings =>
-            {
-                warnings.Ignore(RelationalEventId.PendingModelChangesWarning);
-            });
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.ConfigureWarnings(warnings =>
+        //    {
+        //        warnings.Ignore(RelationalEventId.PendingModelChangesWarning);
+        //    });
+        //}
         public DbSet<Producer> Producers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

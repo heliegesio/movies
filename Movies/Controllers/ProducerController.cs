@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Movies.Application.Commands;
-using Movies.Application.Handlers;
-using Movies.Application.Queries;
+using Movies.Domain.Models;
+using Movies.Infrastructure.Repositories;
 
 namespace Movies.Controllers
 {
@@ -9,26 +8,28 @@ namespace Movies.Controllers
     [Route("[controller]")]
     public class ProducerController : ControllerBase
     {
-        private readonly ProducerHandler _handler;
+        private readonly IProducerRepository _handler;
 
-        public ProducerController(ProducerHandler handler)
+        public ProducerController(IProducerRepository handler)
         {
             _handler = handler;
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateProducerCommand command)
+        public IActionResult Create([FromBody] Producer command)
         {
-            _handler.Handle(command);
-            return CreatedAtAction(nameof(Get), new { id = command.Producer }, command);
+            _handler.Adicionar(command);
+            return Ok(command);
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] string type)
+        public IActionResult Buscar()
         {
-            var query = new GetProducersQuery { Producer = type };
-            var producers = _handler.Handle(query);
-            return Ok(producers);
+            
+            var resl = _handler.Obter();
+            return Ok(resl);
         }
+
+         
     }
 }
