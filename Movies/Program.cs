@@ -15,7 +15,8 @@ builder.Services.AddDbContext<MoviesDbContext>(options =>
 builder.Services.AddScoped<IProducerRepository, ProducerRepository>();
 
 builder.Services.AddControllers();
-
+// Adiciona o AutoMapper ao contêiner de serviços
+builder.Services.AddAutoMapper(typeof(Program)); // ou o tipo que contém seus profiles
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 // Registre a classe SeedDB
@@ -30,21 +31,10 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 
-var options = new DbContextOptionsBuilder<MoviesDbContext>()
-        .UseSqlite("Data Source=DbMovies.db")
-        .Options;
 
-using (var context = new MoviesDbContext(options))
-{
-    context.Database.EnsureCreated(); // Isso garantirá que o banco de dados seja criado
-}
+//var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
 
-Console.WriteLine("Database created successfully.");
-
-var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
-dbContext.Database.EnsureDeleted();
-dbContext.Database.EnsureCreated();
-dbContext.Database.Migrate();
+//dbContext.Database.Migrate();
 
 //var seed = app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedDB>();
 //await seed.Seed();

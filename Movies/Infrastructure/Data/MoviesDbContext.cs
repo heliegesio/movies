@@ -11,13 +11,13 @@ namespace Movies.Infrastructure.Data
         {
         
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.ConfigureWarnings(warnings =>
-        //    {
-        //        warnings.Ignore(RelationalEventId.PendingModelChangesWarning);
-        //    });
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(warnings =>
+            {
+                warnings.Ignore(RelationalEventId.PendingModelChangesWarning);
+            });
+        }
         public DbSet<Producer> Producers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

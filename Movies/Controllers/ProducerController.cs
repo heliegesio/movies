@@ -28,10 +28,10 @@ namespace Movies.Controllers
         //}
 
         [HttpGet]
-        public IActionResult Buscar([FromBody] ListarProducerRequest entrada)
+        public IActionResult Buscar()
         {
 
-            var result = _mediator.Send(entrada);
+            var result = _mediator.Send(new ListarProducerRequest());
             return Ok(result);
         }
 
