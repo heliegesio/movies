@@ -1,5 +1,8 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Movies.Application.Commands.ProducerCommands.Request;
+using Movies.Domain.Models;
+using Newtonsoft.Json;
 
 namespace Movies.Infrastructure.Data
 {
@@ -7,14 +10,17 @@ namespace Movies.Infrastructure.Data
     {
         private readonly MoviesDbContext _dbContext;
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
         public SeedDB(
             MoviesDbContext dbContext,
-            IMediator mediator
+            IMediator mediator,
+            IMapper mapper
             )
         {
             _dbContext = dbContext;
             _mediator = mediator;
+            _mapper = mapper;
 
         }
 
@@ -44,70 +50,45 @@ namespace Movies.Infrastructure.Data
 
         private async Task SeedDataDevelopment()
         {
-            string filePath = "arquivo.json"; // Altere para o caminho do seu arquivo
+            string filePath = "ListaMinMax.json";
 
             // Lê o conteúdo do arquivo
             var jsonData = File.ReadAllText(filePath);
 
-            // Desserializa o JSON para o objeto C#
+            // Desserializa o JSON
             var rootObject = JsonConvert.DeserializeObject<RootObject>(jsonData);
 
-            // min - max
-            var producerRequest = new CreateProducerRequest()
+            //percorre a lista Min para inserir na base
+            foreach (var item in rootObject.Min)
             {
-                Name = "Producer 1",
-                Interval = 1,
-                PreviousWin = 2008,
-                FollowingWin = 2009,
-            };
+                var producer = _mapper.Map<CreateProducerRequest>(item);
+                await _mediator.Send(producer);
 
-            await _mediator.Send(producerRequest);
+            }
 
-            producerRequest = new CreateProducerRequest()
+            //percorre a lista Max para inserir na base
+            foreach (var item in rootObject.Max)
             {
-                Name = "Producer 2",
-                Interval = 1,
-                PreviousWin = 2018,
-                FollowingWin = 2019,
-            };
+                var producer = _mapper.Map<CreateProducerRequest>(item);
+                await _mediator.Send(producer);
 
-            await _mediator.Send(producerRequest);
+            }
 
-            producerRequest = new CreateProducerRequest()
+            //#region Producer criar 20 dados de teste
+
+
+            for (int i = 0; i < 20; i++)
             {
-                Name = "Producer 1",
-                Interval = 99,
-                PreviousWin = 1900,
-                FollowingWin = 1999,
-            };
+                var producerRequest = new CreateProducerRequest()
+                {
+                    Name = DataGenerator.GenerateRandomName(),
+                    Interval = DataGenerator.GenerateRandomNumber(1, 99),
+                    PreviousWin = DataGenerator.GenerateRandomNumber(1900, 2008),
+                    FollowingWin = DataGenerator.GenerateRandomNumber(2009, 2099),
+                };
 
-            await _mediator.Send(producerRequest);
-
-            producerRequest = new CreateProducerRequest()
-            {
-                Name = "Producer 2",
-                Interval = 99,
-                PreviousWin = 2000,
-                FollowingWin = 2099,
-            };
-
-            await _mediator.Send(producerRequest);
-
-            //#region Producer
-
-
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    var producerRequest = new CreateProducerRequest()
-            //    {
-            //        Name = DataGenerator.GenerateRandomName(),
-            //        FollowingWin = DataGenerator.GenerateRandomNumber(10, 40),
-            //        Interval = DataGenerator.GenerateRandomNumber(1, 10),
-            //        PreviousWin = DataGenerator.GenerateRandomNumber(3, 10),
-            //    };
-
-            //    await _mediator.Send(producerRequest);
-            //}
+                await _mediator.Send(producerRequest);
+            }
 
             //#endregion
 

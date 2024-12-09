@@ -11,6 +11,12 @@ namespace Movies.Application.AutoMapper
         {
            
             CreateMap<CreateProducerRequest, Producer>();
+            CreateMap<ProducerJson, CreateProducerRequest>()
+                .ForMember(dst => dst.Name, map => map.MapFrom(src => src.Producer))
+                .ForMember(dst => dst.Interval, map => map.MapFrom(src => src.Interval))
+                .ForMember(dst => dst.PreviousWin, map => map.MapFrom(src => src.PreviousWin))
+                .ForMember(dst => dst.FollowingWin, map => map.MapFrom(src => src.FollowingWin));
+
             CreateMap<Producer, ListarProducersQueryResponse>();
         }
     }
