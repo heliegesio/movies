@@ -30,7 +30,7 @@ namespace Movies.Application.Queries
                 filtro = filtro.And(x => x.Name.ToLower().Contains(request.Name.ToLower()));
 
             return await _repository
-                .Obter()
+                .ObterAsNoTracking()
                 .Where(filtro)
                 .ProjectTo<ListarProducersQueryResponse>(_mapper.ConfigurationProvider)
                 .PaginateAsync(request.NumeroDaPagina, request.TamanhoDaPagina, cancellationToken);

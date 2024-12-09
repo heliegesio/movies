@@ -14,6 +14,7 @@ namespace Movies.Core.Infrastructure
 
         public IQueryable<TEntity> Obter() => _context.Set<TEntity>().AsQueryable();
 
+        public IQueryable<TEntity> ObterAsNoTracking() => Obter().AsNoTrackingWithIdentityResolution();
 
         public async Task AdicionarAsync(TEntity entity)
         {

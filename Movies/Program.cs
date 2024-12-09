@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Movies.Infrastructure.Data;
 using Movies.Infrastructure.Repositories;
+using System.Data.Entity;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,9 +35,9 @@ var app = builder.Build();
 
 
 
-//var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
-
-//dbContext.Database.Migrate();
+var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
+dbContext.Database.EnsureDeleted();
+dbContext.Database.Migrate();
 
 var seed = app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedDB>();
 await seed.Seed();

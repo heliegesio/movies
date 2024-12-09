@@ -1,12 +1,7 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Movies.Application.Commands.ProducerCommands.Request;
 using Movies.Application.Queries.ProducerQuerys.Request;
-using Movies.Domain.Models;
-using Movies.Infrastructure.Repositories;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Movies.Controllers
 {
@@ -38,6 +33,14 @@ namespace Movies.Controllers
             return Ok(result);
         }
 
-         
+        [HttpGet]
+        [Route("ProducerWithLongestInterval")]
+        public IActionResult ProducerWithLongestInterval([FromQuery] ProducerTestIntervalRequest command)
+        {
+
+            var result = _mediator.Send(command);
+            return Ok(result);
+        }
+
     }
 }
