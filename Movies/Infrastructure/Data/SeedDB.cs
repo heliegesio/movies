@@ -44,6 +44,14 @@ namespace Movies.Infrastructure.Data
 
         private async Task SeedDataDevelopment()
         {
+            string filePath = "arquivo.json"; // Altere para o caminho do seu arquivo
+
+            // Lê o conteúdo do arquivo
+            var jsonData = File.ReadAllText(filePath);
+
+            // Desserializa o JSON para o objeto C#
+            var rootObject = JsonConvert.DeserializeObject<RootObject>(jsonData);
+
             // min - max
             var producerRequest = new CreateProducerRequest()
             {
