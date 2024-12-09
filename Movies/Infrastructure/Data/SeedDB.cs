@@ -1,11 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Movies.Application.Commands;
-using Movies.Core.API;
-using Movies.Domain.Models;
-using Movies.Domain.Repositories;
-using System.Data;
+﻿using Movies.Domain.Models;
+using Movies.Infrastructure.Repositories;
 
 namespace Movies.Infrastructure.Data
 {
@@ -13,26 +7,17 @@ namespace Movies.Infrastructure.Data
     {
         private readonly MoviesDbContext _dbContext;
         private readonly IProducerRepository _repositoryProducer;
-        private readonly IEnvironment _environment;
-
-        private readonly IMapper _mapper;
-        private readonly IMediator _mediator;
 
 
        
 
         public SeedDB(
             MoviesDbContext dbContext,
-            IProducerRepository repositoryProducer,
-            IEnvironment environment,
-            IMapper mapper,
-            IMediator mediator)
+            IProducerRepository repositoryProducer)
         {
             _dbContext = dbContext;
             _repositoryProducer = repositoryProducer;
-            _mapper = mapper;
-            _mediator = mediator;
-            _environment = environment;
+           
 
         }
 
@@ -43,8 +28,7 @@ namespace Movies.Infrastructure.Data
 
         private async Task SeedTransactionDevelopment()
         {
-            if (!_environment.IsDevelopment())
-                return;
+            
 
             await using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
@@ -68,16 +52,16 @@ namespace Movies.Infrastructure.Data
         private async Task SeedDataDevelopment()
         {
             #region Producer
-            var producerInput = new CreateProducerCommand()
+            var producerInput = new Producer()
             {
-                Producer = "Teste",
+                Name = "Teste",
                 FollowingWin=1,
                 Interval=2,
                 PreviousWin=3
             };
 
-            var producer = _mapper.Map<Producer>(producerInput);
-            _repositoryProducer.Adicionar(producer);
+          
+            _repositoryProducer.Adicionar(producerInput);
             #endregion
 
            

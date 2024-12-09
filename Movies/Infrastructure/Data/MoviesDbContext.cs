@@ -24,10 +24,14 @@ namespace Movies.Infrastructure.Data
         {
 
 
-            modelBuilder
-               .Entity<Producer>()
-               .ToTable(nameof(Producer))
-               .HasKey(t => t.Id);
+            modelBuilder.Entity<Producer>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).IsRequired();
+                entity.Property(e => e.Interval).IsRequired();
+                entity.Property(e => e.PreviousWin).IsRequired();
+                entity.Property(e => e.FollowingWin).IsRequired();
+            });
 
             base.OnModelCreating(modelBuilder);
         }

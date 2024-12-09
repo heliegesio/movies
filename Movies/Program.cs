@@ -1,14 +1,19 @@
 using Microsoft.EntityFrameworkCore;
-using Movies.Application.Handlers;
-using Microsoft.EntityFrameworkCore.Design;
 using Movies.Infrastructure.Data;
+using Movies.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<ProducerHandler>();
+
+// Registra o repositório do produtor
+builder.Services.AddScoped<IProducerRepository, ProducerRepository>();
+
+
+// Registre a classe SeedDB
+builder.Services.AddScoped<SeedDB>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -23,7 +28,7 @@ var app = builder.Build();
 
 
 var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
-dbContext.Database.EnsureDeleted();
+//dbContext.Database.EnsureDeleted();
 dbContext.Database.Migrate();
 
 var seed = app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedDB>();
