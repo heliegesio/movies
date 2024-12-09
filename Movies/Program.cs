@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Movies.Infrastructure.Data;
 using Movies.Infrastructure.Repositories;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +16,7 @@ builder.Services.AddScoped<IProducerRepository, ProducerRepository>();
 
 builder.Services.AddControllers();
 
-
-
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 // Registre a classe SeedDB
 //builder.Services.AddScoped<SeedDB>();

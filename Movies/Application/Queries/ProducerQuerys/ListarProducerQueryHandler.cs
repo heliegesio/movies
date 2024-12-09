@@ -1,26 +1,27 @@
 ﻿using AutoMapper;
 using MediatR;
-using Movies.Infrastructure.Data;
+using Movies.Application.Queries.ProducerQuerys.Request;
+using Movies.Core.Querys;
+using Movies.Domain.Models;
+using Movies.Infrastructure.Repositories;
 
-public class ListarProducerQueryHandler : IRequestHandler<ListarProducerQuery, List<ListarProducerQueryResponse>>
+namespace Movies.Application.Queries
 {
-    private readonly MoviesDbContext _context;
-    private readonly IMapper _mapper;
-
-    public ListarProducerQueryHandler(MoviesDbContext context, IMapper mapper)
+    public class ListarProducerQueryHandler : IRequestHandler<ListarProducerRequest, PagedQueryResult<Producer>>
     {
-        _context = context;
-        _mapper = mapper;
-    }
+        IProducerRepository _repository;
 
-    public async Task<List<ListarProducerQueryResponse>> Handle(ListarProducerQuery request, CancellationToken cancellationToken)
-    {
-        // Obtenha a consulta IQueryable
-        var producersQuery = _context.Producers.AsQueryable();
+        private readonly IMapper _mapper;
+        public ListarProducerQueryHandler(IProducerRepository repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+        public async Task<PagedQueryResult<Producer>> Handle(ListarProducerRequest request, CancellationToken cancellationToken)
+        {
 
-        // Use ProjectTo após garantir que você tem um IQueryable
-        return await producersQuery
-            .ProjectTo<ListarProducerQueryResponse>(_mapper.ConfigurationProvider)
-            .ToListAsync(cancellationToken);
+
+            return await _repository.Listar<Producer>(request.PageNumber, request.PageSize, cancellationToken);
+        }
     }
 }

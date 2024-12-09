@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Mvc;
+using Movies.Application.Queries.ProducerQuerys.Request;
 using Movies.Domain.Models;
 using Movies.Infrastructure.Repositories;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Movies.Controllers
 {
@@ -8,26 +12,27 @@ namespace Movies.Controllers
     [Route("[controller]")]
     public class ProducerController : ControllerBase
     {
-        private readonly IProducerRepository _handler;
+        private readonly IMediator _mediator;
 
-        public ProducerController(IProducerRepository handler)
+
+        public ProducerController(IMediator mediator)
         {
-            _handler = handler;
+            _mediator = mediator;
         }
 
-        [HttpPost]
-        public IActionResult Create([FromBody] Producer command)
-        {
-            _handler.Adicionar(command);
-            return Ok(command);
-        }
+        //[HttpPost]
+        //public IActionResult Create([FromBody] Producer command)
+        //{
+        //    _handler.Adicionar(command);
+        //    return Ok(command);
+        //}
 
         [HttpGet]
-        public IActionResult Buscar()
+        public IActionResult Buscar([FromBody] ListarProducerRequest entrada)
         {
-            
-            var resl = _handler.Obter();
-            return Ok(resl);
+
+            var result = _mediator.Send(entrada);
+            return Ok(result);
         }
 
          
