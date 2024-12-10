@@ -6,24 +6,18 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adiciona serviços como antes
 builder.Services.AddDbContext<MoviesDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnectionString")));
 
 
-
-// Registre seu repositório
 builder.Services.AddScoped<SeedDB>();
 
 builder.Services.AddScoped<IProducerRepository, ProducerRepository>();
 
 builder.Services.AddControllers();
-// Adiciona o AutoMapper ao contêiner de serviços
-builder.Services.AddAutoMapper(typeof(Program)); // ou o tipo que contém seus profiles
+builder.Services.AddAutoMapper(typeof(Program)); 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-// Registre a classe SeedDB
-//builder.Services.AddScoped<SeedDB>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -42,7 +36,6 @@ dbContext.Database.Migrate();
 var seed = app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedDB>();
 await seed.Seed();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
