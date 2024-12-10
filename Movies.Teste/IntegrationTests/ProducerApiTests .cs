@@ -9,11 +9,11 @@ namespace Movies.Teste.IntegrationTests
         public string token = "";
         public string urlAPI = "https://localhost:7039/";
 
+        public string erro = "";
         public string http(string url, string tipo, object send=null)
         {
 
-            string urlsend = urlAPI;
-            urlsend += url;
+            string urlsend = urlAPI + url;
 
             string retorno = "";
 
@@ -37,7 +37,7 @@ namespace Movies.Teste.IntegrationTests
                 HttpWebResponse response = (HttpWebResponse)res;
                 if ((int)response.StatusCode > 226 || response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    string status = "ERROR: " + response.StatusCode.ToString();
+                    erro = "ERROR: " + response.StatusCode.ToString();
                 }
                 else
                 {
@@ -64,7 +64,7 @@ namespace Movies.Teste.IntegrationTests
             catch (Exception ex)
             {
 
-                string status = "ERROR: Something bad happend: " + ex.ToString();
+                erro = "ERROR: Something bad happend: " + ex.ToString();
             }
 
 
