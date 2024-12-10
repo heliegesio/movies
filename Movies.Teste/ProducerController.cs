@@ -8,19 +8,11 @@ using System.Diagnostics;
 namespace Movies.Teste
 {
     [TestClass]
-    public class UnitTest1 : MovieApiTests
-    {
-        public UnitTest1()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-
-
+    public class ProducerTest : MovieApiTests
+    {      
 
         [TestMethod]
-        public void Inserir()
+        public void BuscarProducers()
         {
 
             var retorno = http("Producer", "get");
