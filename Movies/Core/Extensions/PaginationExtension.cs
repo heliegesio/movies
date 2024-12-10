@@ -36,5 +36,19 @@ namespace Movies.Core.Extensions
 
             return result;
         }
+
+        public static async Task<List<TResultItem>> ListarAsync<TResultItem>(
+            this IQueryable<TResultItem> query,
+            
+            CancellationToken cancellationToken = new())
+            where TResultItem : IPagedQueryResultItem
+        {
+          
+            var items = await query                
+                .ToListAsync(cancellationToken);
+
+            
+            return items;
+        }
     }
 }
