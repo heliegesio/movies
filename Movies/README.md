@@ -14,21 +14,23 @@ O Seed se encontra em Movies/Infrastructure/Data/SeedDB.cs
 Na linha 54
 
 Na linha 81 tem uma funcionaldade comentada que permite inserir massa de registro na base
-//#region Producer criar 99 dados de teste
-            //for (int i = 0; i < 99; i++)
-            //{
-            //    var producerRequest = new CreateProducerRequest()
-            //    {
-            //        Name = DataGenerator.GenerateRandomName(),
-            //        Interval = DataGenerator.GenerateRandomNumber(1, 99),
-            //        PreviousWin = DataGenerator.GenerateRandomNumber(1900, 2008),
-            //        FollowingWin = DataGenerator.GenerateRandomNumber(2009, 2099),
-            //    };
 
-            //    await _mediator.Send(producerRequest);
-            //}
+            #region Producer criar 99 dados de teste
+            
+                        for (int i = 0; i < 99; i++)
+                        {
+                            var producerRequest = new CreateProducerRequest()
+                            {
+                                Name = DataGenerator.GenerateRandomName(),
+                                Interval = DataGenerator.GenerateRandomNumber(1, 99),
+                                PreviousWin = DataGenerator.GenerateRandomNumber(1900, 2008),
+                                FollowingWin = DataGenerator.GenerateRandomNumber(2009, 2099),
+                            };
+            
+                            await _mediator.Send(producerRequest);
+                        }
 
-            //#endregion
+            #endregion
 
 A arquiteura se basea em code first permitindo manuteções na base com maior facilidade
 Por isso pode ser necessário rodar os comandos abaixo
