@@ -39,15 +39,23 @@ Na linha 81 tem uma funcionaldade comentada que permite inserir massa de registr
 A arquiteura se basea em code first permitindo manuteções na base com maior facilidade
 Por isso pode ser necessário rodar os comandos abaixo
 
-dotnet tool install --global dotnet-ef
-
-dotnet ef database update
-
+            #region
+            
+                        dotnet tool install --global dotnet-ef
+                        
+                        dotnet ef database update
+            
+            #endregion
+            
 No Program.cs também tem uma configuração para sempre limar a base
 
-var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
-dbContext.Database.EnsureDeleted();
-dbContext.Database.Migrate();
+            #region
+            
+                        var dbContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<MoviesDbContext>();
+                        dbContext.Database.EnsureDeleted();
+                        dbContext.Database.Migrate();
+            
+            #endregion
 
 Para fazer os desavios o caminho foi juntar todos os dados em uma tabela e a partir desse resultado fazer os calculos:
 
