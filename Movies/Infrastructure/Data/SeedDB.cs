@@ -58,37 +58,37 @@ namespace Movies.Infrastructure.Data
             // Desserializa o JSON
             var rootObject = JsonConvert.DeserializeObject<RootObject>(jsonData);
 
-            ////percorre a lista Min para inserir na base
-            //foreach (var item in rootObject.Min)
-            //{
-            //    var producer = _mapper.Map<CreateProducerRequest>(item);
-            //    await _mediator.Send(producer);
-
-            //}
-
-            ////percorre a lista Max para inserir na base
-            //foreach (var item in rootObject.Max)
-            //{
-            //    var producer = _mapper.Map<CreateProducerRequest>(item);
-            //    await _mediator.Send(producer);
-
-            //}
-
-            ////#region Producer criar 20 dados de teste
-
-
-            for (int i = 0; i < 99; i++)
+            //percorre a lista Min para inserir na base
+            foreach (var item in rootObject.Min)
             {
-                var producerRequest = new CreateProducerRequest()
-                {
-                    Name = DataGenerator.GenerateRandomName(),
-                    Interval = DataGenerator.GenerateRandomNumber(1, 99),
-                    PreviousWin = DataGenerator.GenerateRandomNumber(1900, 2008),
-                    FollowingWin = DataGenerator.GenerateRandomNumber(2009, 2099),
-                };
+                var producer = _mapper.Map<CreateProducerRequest>(item);
+                await _mediator.Send(producer);
 
-                await _mediator.Send(producerRequest);
             }
+
+            //percorre a lista Max para inserir na base
+            foreach (var item in rootObject.Max)
+            {
+                var producer = _mapper.Map<CreateProducerRequest>(item);
+                await _mediator.Send(producer);
+
+            }
+
+            //#region Producer criar 99 dados de teste
+
+
+            //for (int i = 0; i < 99; i++)
+            //{
+            //    var producerRequest = new CreateProducerRequest()
+            //    {
+            //        Name = DataGenerator.GenerateRandomName(),
+            //        Interval = DataGenerator.GenerateRandomNumber(1, 99),
+            //        PreviousWin = DataGenerator.GenerateRandomNumber(1900, 2008),
+            //        FollowingWin = DataGenerator.GenerateRandomNumber(2009, 2099),
+            //    };
+
+            //    await _mediator.Send(producerRequest);
+            //}
 
             //#endregion
 
