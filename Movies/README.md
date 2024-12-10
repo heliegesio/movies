@@ -46,6 +46,14 @@ Por isso pode ser necessário rodar os comandos abaixo
                         dotnet ef database update
             
             #endregion
+
+Para rodar o projeto basta executar o comando abaixo e abrir o browser no endereço: https://localhost:7039/swagger
+
+            #region
+            
+                        dotnet run --launch-profile https
+            
+            #endregion
             
 No Program.cs também tem uma configuração para sempre limar a base
 
