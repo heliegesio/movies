@@ -7,9 +7,13 @@ A importação do arquivo é fieta no inicio ao startar a aplicação no Program
 Para essa abplicação estou usando o Seed, que além de importar o arquivo também me permite criar um grande numnero de dados na base para fazer testes
 
 Program.cs linha 36
-var seed = app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedDB>();
-await seed.Seed();
 
+            #region
+                        var seed = app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedDB>();
+                        await seed.Seed();
+            #endregion
+
+            
 O Seed se encontra em Movies/Infrastructure/Data/SeedDB.cs
 Na linha 54
 
