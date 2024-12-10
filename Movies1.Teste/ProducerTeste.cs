@@ -2,7 +2,6 @@
 using Movies.Teste.IntegrationTests;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Diagnostics;
 
 namespace Movies.Teste
@@ -74,8 +73,15 @@ namespace Movies.Teste
 
             var retornoAPI = JsonConvert.DeserializeObject<JObject>(retorno);
             var result = retornoAPI.SelectToken("result");
-
-            Trace.WriteLine(ititens.Type);
+            
+            if (result == null)
+            {
+                Assert.Fail("Não retornou o resultado esperado");
+            }
+            else
+            {
+                Trace.WriteLine(result);
+            }
 
         }
 
@@ -91,7 +97,16 @@ namespace Movies.Teste
 
             var retornoAPI = JsonConvert.DeserializeObject<JObject>(retorno);
 
-            Trace.WriteLine(retornoAPI);
+            var result = retornoAPI.SelectToken("result");
+
+            if (result == null)
+            {
+                Assert.Fail("Não retornou o resultado esperado");
+            }
+            else
+            {
+                Trace.WriteLine(result);
+            }
 
         }
     }
