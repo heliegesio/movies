@@ -50,6 +50,8 @@ namespace Movies.Infrastructure.Data
 
         private async Task SeedDataDevelopment()
         {
+            
+            #region Imporação do arquivo
             string filePath = "ListaMinMax.json";
 
             // Lê o conteúdo do arquivo
@@ -73,6 +75,8 @@ namespace Movies.Infrastructure.Data
                 await _mediator.Send(producer);
 
             }
+            
+            #endregion
 
             //#region Producer criar 99 dados de teste
 
