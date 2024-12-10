@@ -9,7 +9,7 @@ namespace Movies.Teste
 {
     [TestClass]
     public class ProducerTest : MovieApiTests
-    {      
+    {
 
         [TestMethod]
         public void BuscarProducers()
@@ -59,6 +59,39 @@ namespace Movies.Teste
             {
                 Trace.WriteLine(itens);
             }
+
+        }
+
+        [TestMethod]
+        public void BuscarComMaiorIntevalo()
+        {
+
+            var retorno = http("Producer/ProdutorComMaiorIntevalo", "get");
+            if (retorno == null)
+                Assert.Fail(erro);
+            else
+                Trace.WriteLine("http ok");
+
+            var retornoAPI = JsonConvert.DeserializeObject<JObject>(retorno);
+            var result = retornoAPI.SelectToken("result");
+
+            Trace.WriteLine(ititens.Type);
+
+        }
+
+        [TestMethod]
+        public void BuscarComMenorIntevalo()
+        {
+
+            var retorno = http("Producer/ProdutorComMenorIntevalo", "get");
+            if (retorno == null)
+                Assert.Fail(erro);
+            else
+                Trace.WriteLine("http ok");
+
+            var retornoAPI = JsonConvert.DeserializeObject<JObject>(retorno);
+
+            Trace.WriteLine(retornoAPI);
 
         }
     }
